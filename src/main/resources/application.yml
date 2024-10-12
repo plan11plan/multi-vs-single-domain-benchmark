@@ -1,20 +1,36 @@
+server:
+  tomcat:
+    threads:
+      max: 30
+    accept-count: 50
+    max-connections: 8192
 spring:
   application:
     name: VisitDestinationReview
   datasource:
-    url: jdbc:h2:mem:test
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
-#    hikari:
-#      maximum-pool-size: 100
-#      connection-timeout: 5000
-#      connection-init-sql: SELECT 1
-#      validation-timeout: 2000
-#      minimum-idle: 10
-#      idle-timeout: 600000
-#      max-lifetime: 1800000
+    url: jdbc:mysql://localhost:3306/domain_test?rewriteBatchedStatements=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: root
+    password:
+    hikari:
+      maximum-pool-size: 200
+#      connection-timeout: 30000 # 30초
+#      max-lifetime: 1800000 # 30분
 
+
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+#        format_sql: true
+#        show_sql: true
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 2000
   h2:
     console:
       enabled: true
@@ -22,6 +38,22 @@ spring:
       settings:
         web-allow-others: true
 
+org.hibernate.orm.jdbc.bind: trace`
 
+logging:
+  level:
+    root: off
+    org:
+      hibernate:
+        SQL: debug
 
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+#
+#  endpoint:
+#    health:
+#      show-details: always
 
